@@ -2,16 +2,17 @@
 config = {
 
 	oled = {
-		type = 1 -- 1=i2c, 2=spi
+		type = 1, -- 1=i2c, 2=spi
 
 		i2c = {
 			sda = 1,
-			sdb = 2
-		}
+			sdb = 2,
+			sla = 0x3c
+		},
 
 		spi = {
-			cs  = 8 -- pull-down 10k to GND
-			dc  = 4
+			cs  = 8, -- pull-down 10k to GND
+			dc  = 4,
 			res = 0
 		}
 	},
@@ -23,7 +24,7 @@ config = {
 	rotary = {
 		pinA = 5,
 		pinB = 6,
-		switch = 7,
+		switch = 7
 	},
 
 	servo = {
