@@ -21,6 +21,12 @@ function tMessage:init()
 			print( "failed reason: "..reason )
 		end
 	)
+
+	m:subscribe( "/topic", 0, function( client )
+		print( "subscribe success" )
+	end)
+
+	m:on( "message", receive )
 end
 
 
@@ -28,4 +34,12 @@ function tMessage:send( data )
 	m:publish( "/home/groundfloor/bedroom/master/temp", data, 0, 1, function(client)
 		print("sent")
 	end)
+end
+
+
+function tMessage:receive( client, topic, data )
+	print( topic .. ":" )
+	if data ~= nil then
+		print( data )
+	end
 end

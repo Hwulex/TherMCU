@@ -26,8 +26,7 @@ function TherMCU:init()
 	self.oled.init()
 	self.temp.init()
 	self.rotary.init()
-	-- self.message.init()
-	-- self.receive.init()
+	self.message.init()
 end
 
 
