@@ -35,3 +35,8 @@ function TherMCU:go()
 
 	end)
 end
+
+
+function TherMCU:instruct( )
+	-- route instruction from rotary or mqtt
+end

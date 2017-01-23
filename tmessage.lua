@@ -18,7 +18,7 @@ function tMessage:init()
 			print( "connected" )
 		end,
 		function( client, reason )
-			print( "failed reason: "..reason )
+			print( "failed reason: " .. reason )
 		end
 	)
 
@@ -42,4 +42,6 @@ function tMessage:receive( client, topic, data )
 	if data ~= nil then
 		print( data )
 	end
+
+	app:instruct();
 end
