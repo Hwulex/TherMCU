@@ -1,7 +1,7 @@
 
 config = {
 
-	oled = {
+	display = {
 		type = 1, -- 1=i2c, 2=spi
 
 		i2c = {
@@ -19,6 +19,13 @@ config = {
 
 	temp = {
 		pin = 2
+		, unit	= 0 -- 0=C, 1=F
+		-- User restricted min and max
+		, min	= 5
+		, max	= 20
+		-- Thermostat physical actual min and max
+		, minA	= 0
+		, maxA	= 30
 	},
 
 	rotary = {
@@ -29,6 +36,17 @@ config = {
 
 	servo = {
 		pin = 2
+		-- Degrees from 0 (horizontal) for temp.minA and temp.maxA values
+		, min = 0
+		, max = 125
 	},
 
+	menu = {
+		default = 13 -- bitwise
+			-- 1 = temp
+			-- 2 = humid
+			-- 4 = date
+			-- 8 = time
+		, timeout = 5 -- seconds, menu display timeout (before revert to default)
+	}
 }

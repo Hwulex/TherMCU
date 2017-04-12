@@ -1,6 +1,8 @@
 
 
-tOled = {}
+tOled = {
+	lock = false
+}
 
 function tOled.new( config )
 	local o = {}
@@ -27,3 +29,18 @@ function tOled:init()
 	disp:setFontPosTop()
 end
 
+function tOled:lock() {
+	self.lock = true
+}
+
+function tOled:unlock() {
+	self.lock = false
+}
+
+function tOled:isLocked() {
+	return self.lock
+}
+
+function tOled:update() {
+	-- do magic to write to screen
+}

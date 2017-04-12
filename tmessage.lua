@@ -1,4 +1,4 @@
-
+-- @todo polymorphic mqqt/pubnub classes
 
 tMessage = {}
 
@@ -8,7 +8,6 @@ function tMessage.new( config )
 	setmetatable(o, { __index = tMessage })
 	return o
 end
-
 
 function tMessage:init()
 	-- init mqtt client with keepalive timer 120sec
@@ -29,19 +28,16 @@ function tMessage:init()
 	m:on( "message", receive )
 end
 
-
 function tMessage:send( data )
 	m:publish( "/home/groundfloor/bedroom/master/temp", data, 0, 1, function(client)
 		print("sent")
 	end)
 end
 
-
 function tMessage:receive( client, topic, data )
 	print( topic .. ":" )
 	if data ~= nil then
 		print( data )
+		app:instruct( topic, data );
 	end
-
-	app:instruct();
 end

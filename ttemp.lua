@@ -9,21 +9,19 @@ function tTemp.new( config )
 	return o
 end
 
-
 function tTemp:init()
 	print( self.config.pin )
 end
 
-
-function tTemp:getData()
-	local status, temp, humi = dht.read( self.config.pin )
+function tTemp:read()
+	local status, temp, humid = dht.read( self.config.pin )
 	if status == dht.OK then
-		print( "DHT Temperature:" .. temp .. ";" .. "Humidity:" .. humi )
+		print( "DHT Temperature:" .. temp .. ";" .. "Humidity:" .. humid )
 	elseif status == dht.ERROR_CHECKSUM then
 	    print( "DHT Checksum error." )
 	elseif status == dht.ERROR_TIMEOUT then
 	    print( "DHT timed out." )
 	end
 
-	return temp, humi
+	return temp, humid
 end
