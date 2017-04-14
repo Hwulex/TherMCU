@@ -41,6 +41,6 @@ function tOled:isLocked() {
 	return self.lock
 }
 
-function tOled:update() {
-	-- do magic to write to screen
+function tOled:update( text ) {
+	disp:drawStr( 0, 0, text )
 }

@@ -42,12 +42,12 @@ function TherMCU:go()
 		self.temp, self.humid = self.temp.read();
 		if self.isLocked() == false then
 			self.display.update( self.temp )
-			self.menu = 0
+			self.menuPos = self.temp
 		end
 		self.message.send( { self.temp, self.humid } )
 	end)
 
-	-- 1 second loop for menu handling
+	-- 1 second loop for menu handling and screen updating
 	-- tmr.alarm( 1, 1000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 1000, tmr.ALARM_AUTO, function()
 		if 0 < self.menuTmr then
@@ -69,10 +69,13 @@ function TherMCU:instruct( topic, data )
 			-- Need to track menu depth and position
 
 	if "temp" == topic then
+		-- Only continue if temp has selected different from current setting
 		if data ~= self.temp then
+			-- If setting outside user range, show current setting
 			if min > data or max < data then
-				self.display.update( "Set: " .. data )
+				self.display.update( "Set: " .. self.temp )
 			else
+				-- Calculate thermostat rotation
 				degrees = (
 					( config.temp.maxD - config.temp.minD )
 					/ ( config.temp.maxA - config.temp.minA )
@@ -92,21 +95,27 @@ function TherMCU:rotary( action )
 		return
 	elseif -1 == action then
 	-- turn left
+		-- if selected temp is within defined range, update temp
 		if self.config.temp.min < self.menuPos then
 			self.menuPos = self.menuPos -1
 		end
-		self.display.update( self.menuPos )
+		-- Display selected temp. If selected temp outside range, show last
+		-- valid temp that was within range as input has been ignored
+		-- self.display.update( self.menuPos )
+		self:instruct( "temp", self.menuPos )
 	elseif 1 == action then
 	-- turn right
-		-- If not at max temp, increase
+		-- If not at max defined temp, increase
 		if self.config.temp.max > self.menuPos then
 			self.menuPos = self.menuPos + 1
 		end
-		self.display.update( self.menuPos )
+		self:instruct( "temp", self.menuPos )
 	else
+		-- Invalid event, reset timer to reset display
 		self.menuTmr = 0
 		return
 	end
 
+	-- Setting has been made, update screen for user defined time
 	self.menuTmr = self.config.menu.timeout
 end

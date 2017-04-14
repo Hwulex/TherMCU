@@ -30,12 +30,12 @@ end
 
 function tMessage:send( data )
 	m:publish( "/home/groundfloor/bedroom/master/temp", data, 0, 1, function(client)
-		print("sent")
+		print( "Tx" .. data )
 	end)
 end
 
 function tMessage:receive( client, topic, data )
-	print( topic .. ":" )
+	print( "Rx: " .. topic .. ":" )
 	if data ~= nil then
 		print( data )
 		app:instruct( topic, data );
