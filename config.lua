@@ -26,6 +26,9 @@ config = {
 		-- Thermostat physical actual min and max
 		, minA	= 0
 		, maxA	= 30
+		-- Degrees from 0 (horizontal) for temp.minA and temp.maxA values
+		, minD	= 0
+		, maxD	= 125
 	},
 
 	rotary = {
@@ -36,9 +39,9 @@ config = {
 
 	servo = {
 		pin = 2
-		-- Degrees from 0 (horizontal) for temp.minA and temp.maxA values
-		, min = 0
-		, max = 125
+		, freq = 50 -- Hz
+		, min = 400 -- 0deg posn value
+		, max = 2400 -- 180deg posn value
 	},
 
 	menu = {

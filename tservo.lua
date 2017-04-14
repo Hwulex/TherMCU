@@ -1,8 +1,6 @@
 
 
 tServo = {
-	min	= 400
-	max = 2400
 }
 
 function tServo.new( config )
@@ -21,7 +19,7 @@ function tServo:move( degrees )
 	position = self:_calcPos( degrees )
 
 	-- drive the servo by generating high and low pulses
-	tmr.create():alarm( 20, tmr.ALARM_AUTO, function() -- 50Hz
+	tmr.create():alarm( 1000/self.config.freq, tmr.ALARM_AUTO, function()
 		gpio.write( self.config.pin, gpio.HIGH )
 		tmr.delay( position )
 		gpio.write( self.config.pin, gpio.LOW )
@@ -36,6 +34,6 @@ function tServo:_calcPos( degrees )
 	-- 1400 = 90 deg
 	-- 2400 = 180 deg
 
-	position = self.min + ( ( ( self.max - self.min ) / 180 ) * degrees )
+	position = self.config.min + ( ( ( self.config.max - self.config.min ) / 180 ) * degrees )
 	return position
 end

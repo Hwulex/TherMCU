@@ -47,6 +47,7 @@ function TherMCU:go()
 		self.message.send( { self.temp, self.humid } )
 	end)
 
+	-- 1 second loop for menu handling
 	-- tmr.alarm( 1, 1000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 1000, tmr.ALARM_AUTO, function()
 		if 0 < self.menuTmr then
@@ -59,6 +60,7 @@ function TherMCU:go()
 	end)
 end
 
+-- Receive instructions from listener classes
 function TherMCU:instruct( topic, data )
 	-- instruction from mqtt/pubnub
 	-- instruction from rotary
@@ -72,7 +74,7 @@ function TherMCU:instruct( topic, data )
 				self.display.update( "Set: " .. data )
 			else
 				degrees = (
-					( config.servo.max - config.servo.min )
+					( config.temp.maxD - config.temp.minD )
 					/ ( config.temp.maxA - config.temp.minA )
 				) * data
 				self.servo.move( degrees )
@@ -82,6 +84,7 @@ function TherMCU:instruct( topic, data )
 	end
 end
 
+-- Rotary switch instruction interpretation
 function TherMCU:rotary( action )
 	if 0 == action then
 	-- push button
