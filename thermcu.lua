@@ -40,7 +40,7 @@ function TherMCU:go()
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 60000, tmr.ALARM_AUTO, function()
 		self.temp, self.humid = self.temp.read();
-		if self.isLocked() == false then
+		if false == self.isLocked() then
 			self.display.update( self.temp )
 			self.menuPos = self.temp
 		end
@@ -90,7 +90,7 @@ end
 -- Rotary switch instruction interpretation
 function TherMCU:rotary( action )
 	if 0 == action then
-	-- push button
+	-- pushing button actually sets the temperature
 		self:instruct( "temp", self.menuPos )
 		return
 	elseif -1 == action then
@@ -101,21 +101,23 @@ function TherMCU:rotary( action )
 		end
 		-- Display selected temp. If selected temp outside range, show last
 		-- valid temp that was within range as input has been ignored
-		-- self.display.update( self.menuPos )
-		self:instruct( "temp", self.menuPos )
+		-- This means if you keep spinning left, displayed temp will lock
+		-- at lowest user defined temp
+		self.display.update( self.menuPos )
 	elseif 1 == action then
 	-- turn right
 		-- If not at max defined temp, increase
 		if self.config.temp.max > self.menuPos then
 			self.menuPos = self.menuPos + 1
 		end
-		self:instruct( "temp", self.menuPos )
+		-- Only display selected temp if within user range
+		self.display.update( self.menuPos )
 	else
 		-- Invalid event, reset timer to reset display
 		self.menuTmr = 0
 		return
 	end
 
-	-- Setting has been made, update screen for user defined time
+	-- Setting has been made, update screen for user defined time delay
 	self.menuTmr = self.config.menu.timeout
 end
