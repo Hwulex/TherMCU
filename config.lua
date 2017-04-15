@@ -39,26 +39,32 @@ config = {
 
 	servo = {
 		pin = 2
-		, freq = 50 -- Hz
-		, min = 400 -- 0deg posn value
-		, max = 2400 -- 180deg posn value
+		, frq = 50		-- Hz
+		, min = 400		-- 0deg posn value
+		, max = 2400	-- 180deg posn value
 	},
 
 	menu = {
-		default = 13 -- bitwise
-			-- 1 = temp
-			-- 2 = humid
-			-- 4 = date
-			-- 8 = time
+		default = 7 -- bitwise
+			-- 1	= current temp
+			-- 2	= select temp
+			-- 4	= humid
+			-- 8	= date
+			-- 16	= time
 		, timeout = 5 -- seconds, menu display timeout (before revert to default)
 	},
 
  	message = {
-		client:	"clientid"
+		clnt:	"clientid"
 		, poll: 120
+		, scur: 0
+		, rcon: 1
 		, user: "username"
 		, pass: "password"
 		, addr: "192.168.1.20"
 		, port: 1883
+		, qoss:	0
+		, qosp: 0
+		, retn: 1
 	}
 }

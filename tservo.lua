@@ -19,7 +19,7 @@ function tServo:move( degrees )
 	position = self:_calcPos( degrees )
 
 	-- drive the servo by generating high and low pulses
-	tmr.create():alarm( 1000/self.config.freq, tmr.ALARM_AUTO, function()
+	tmr.create():alarm( 1000/self.config.frq, tmr.ALARM_AUTO, function()
 		gpio.write( self.config.pin, gpio.HIGH )
 		tmr.delay( position )
 		gpio.write( self.config.pin, gpio.LOW )

@@ -11,8 +11,8 @@ end
 
 function tMessage:init()
 	-- init mqtt client with keepalive timer 120sec
-	m = mqtt.Client( self.config.client, self.config.poll, self.config.user, self.config.pass )
-	m:connect( self.config.addr, self.config.port, 0, 1,
+	m = mqtt.Client( self.config.clnt, self.config.poll, self.config.user, self.config.pass )
+	m:connect( self.config.addr, self.config.port, self.config.scur, self.config.rcon,
 		function( client )
 			print( "MQTT connected" )
 		end,
@@ -21,7 +21,7 @@ function tMessage:init()
 		end
 	)
 
-	m:subscribe( "/topic", 0, function( client )
+	m:subscribe( "/topic", self.config.qoss, function( client )
 		print( "MQTT subscribe success" )
 	end)
 
@@ -29,7 +29,7 @@ function tMessage:init()
 end
 
 function tMessage:send( data )
-	m:publish( "/home/groundfloor/bedroom/master/temp", data, 0, 1, function(client)
+	m:publish( "/home/groundfloor/bedroom/master/temp", data, self.config.qosp, self.config.retn, function(client)
 		print( "MQTT Tx" .. data )
 	end)
 end
