@@ -51,5 +51,14 @@ config = {
 			-- 4 = date
 			-- 8 = time
 		, timeout = 5 -- seconds, menu display timeout (before revert to default)
+	},
+
+ 	message = {
+		client:	"clientid"
+		, poll: 120
+		, user: "username"
+		, pass: "password"
+		, addr: "192.168.1.20"
+		, port: 1883
 	}
 }
