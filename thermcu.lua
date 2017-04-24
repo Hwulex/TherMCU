@@ -30,15 +30,15 @@ end
 
 function TherMCU:init()
 	print( "servo.init" )
-	self.servo.init()
+	self.servo:init()
 	print( "display.init" )
-	self.display.init()
+	self.display:init()
 	print( "temp.init" )
-	self.temp.init()
+	self.temp:init()
 	print( "rotary.init" )
-	self.rotary.init()
+	self.rotary:init()
 	print( "mqtt.init" )
-	self.message.init()
+	self.message:init()
 	-- print( "rgbled.init" )
 	-- self.led.init()
 end
@@ -47,23 +47,23 @@ function TherMCU:go()
 	-- 60 second loop to read temp and update display
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 60000, tmr.ALARM_AUTO, function()
-		self.temp, self.humid = self.temp.read();
-		if false == self.isLocked() then
-			self.display.update( self.temp )
+		self.temp, self.humid = self.temp:read();
+		if false == self:isLocked() then
+			self.display:update( self.temp )
 			self.menuPos = self.temp
 		end
-		self.message.send( { self.temp, self.humid } )
+		self.message:send( { self.temp, self.humid } )
 	end)
 
 	-- 1 second loop for menu handling and screen updating
 	-- tmr.alarm( 1, 1000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 1000, tmr.ALARM_AUTO, function()
 		if 0 < self.menuTmr then
-			self.display.lock()
+			self.display:lock()
 			self.menuTmr = self.menuTmr - 1
 		else
-			self.display.unlock()
-			self.display.update( self.temp )
+			self.display:unlock()
+			self.display:update( self.temp )
 		end
 	end)
 end
@@ -81,15 +81,15 @@ function TherMCU:instruct( topic, data )
 		if data ~= self.temp then
 			-- If setting outside user range, show current setting
 			if min > data or max < data then
-				self.display.update( "Set: " .. self.temp )
+				self.display:update( "Set: " .. self.temp )
 			else
 				-- Calculate thermostat rotation
 				degrees = (
 					( config.temp.maxD - config.temp.minD )
 					/ ( config.temp.maxA - config.temp.minA )
 				) * data
-				self.servo.move( degrees )
-				self.display.update( "Set: " .. data )
+				self.servo:move( degrees )
+				self.display:update( "Set: " .. data )
 			end
 		end
 	end
