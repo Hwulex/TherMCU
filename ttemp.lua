@@ -10,7 +10,6 @@ function tTemp.new( config )
 end
 
 function tTemp:init()
-	print( self.config.pin )
 end
 
 function tTemp:read()
