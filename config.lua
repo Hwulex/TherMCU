@@ -6,7 +6,7 @@ config = {
 
 		i2c = {
 			sda = 1,
-			sdb = 2,
+			scl = 2,
 			sla = 0x3c
 		},
 
@@ -55,16 +55,16 @@ config = {
 	},
 
  	message = {
-		clnt:	"clientid"
-		, poll: 120
-		, scur: 0
-		, rcon: 1
-		, user: "username"
-		, pass: "password"
-		, addr: "192.168.1.20"
-		, port: 1883
-		, qoss:	0
-		, qosp: 0
-		, retn: 1
+		clnt =	"clientid"
+		, poll = 120
+		, scur = 0
+		, rcon = 1
+		, user = "username"
+		, pass = "password"
+		, addr = "192.168.1.20"
+		, port = 1883
+		, qoss =	0
+		, qosp = 0
+		, retn = 1
 	}
 }
