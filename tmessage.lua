@@ -15,17 +15,17 @@ function tMessage:init()
 	m:connect( self.config.addr, self.config.port, self.config.scur, self.config.rcon,
 		function( client )
 			print( "MQTT connected" )
+
+			m:subscribe( "/topic", self.config.qoss, function( client )
+				print( "MQTT subscribe success" )
+			end)
+
+			m:on( "message", receive )
 		end,
 		function( client, reason )
 			print( "MQTT Failed reason: " .. reason )
 		end
 	)
-
-	m:subscribe( "/topic", self.config.qoss, function( client )
-		print( "MQTT subscribe success" )
-	end)
-
-	m:on( "message", receive )
 end
 
 function tMessage:send( data )
