@@ -13,7 +13,7 @@ end
 
 
 function tOled:init()
-	if self.config.oled.type == 2 then
+	if self.config.type == 2 then
 		spi.setup(1, spi.MASTER, spi.CPOL_LOW, spi.CPHA_LOW, 8, 8)
 		-- we won't be using the HSPI /CS line, so disable it again
 		gpio.mode(8, gpio.INPUT, gpio.PULLUP)
