@@ -2,6 +2,7 @@
 
 tRotary = {
 	pos	= 0
+	, channel = 0
 }
 
 function tRotary.new( config )
@@ -12,14 +13,14 @@ function tRotary.new( config )
 end
 
 function tRotary:init()
-	rotary.setup( 0, self.config.pinA, self.config.pinB, self.config.switch )
+	rotary.setup( self.channel, self.config.pinA, self.config.pinB, self.config.switch )
 
 	-- Turn event
-	rotary.on( 0, rotary.TURN, function( type, pos, when )
-		print "Position=" .. pos .. " event type=" .. type .. " time=" .. when
+	rotary.on( self.channel, rotary.TURN, function( type, pos, when )
+		print( "Position=" .. pos .. " event type=" .. type .. " time=" .. when )
 
 		-- Read position from rotary to figure out if left or right
-		pos = rotary.getpos( 0 )
+		pos = rotary.getpos( self.channel )
 		print( "Rotary cur: " .. self.pos )
 		print( "Rotary pos: " .. pos )
 
@@ -34,8 +35,8 @@ function tRotary:init()
 			print( "Rotary turned right" )
 		else
 			-- no turn (or end in same place as start)
-			print( "Rotry turned but ended up where we started" )
-			break
+			print( "Rotry turned but ended up where we started. Do nothing" )
+			return
 		end
 		self.pos = pos
 
@@ -44,8 +45,8 @@ function tRotary:init()
 	end)
 
 	-- Click event
-	rotary.on( 0, rotary.CLICK, function( type )
-		print "Rotary clicked: event type (" .. type .. ")"
+	rotary.on( self.channel, rotary.CLICK, function( type )
+		print( "Rotary clicked: event type (" .. type .. ")" )
 		app:rotary( 0 )
 	end)
 end

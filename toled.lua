@@ -29,18 +29,18 @@ function tOled:init()
 	disp:setFontPosTop()
 end
 
-function tOled:lock() {
+function tOled:lock()
 	self.lock = true
-}
+end
 
-function tOled:unlock() {
+function tOled:unlock()
 	self.lock = false
-}
+end
 
-function tOled:isLocked() {
+function tOled:isLocked()
 	return self.lock
-}
+end
 
-function tOled:update( text ) {
+function tOled:update( text )
 	disp:drawStr( 0, 0, text )
-}
+end

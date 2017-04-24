@@ -2,14 +2,15 @@ dofile( "tservo.lua" )
 dofile( "toled.lua" )
 dofile( "ttemp.lua" )
 dofile( "trotary.lua" )
+dofile( "tmessage.lua" )
 
 
 TherMCU = {
 	menuDep = 0
-	menuPos = 0
-	temp	= 0
-	humid	= 0
-	-- menu	= {{1,2,3}, {4,5,6}, {7,8,9}}
+	, menuPos = 0
+	, temp	= 0
+	, humid	= 0
+	--, menu	= {{1,2,3}, {4,5,6}, {7,8,9}}
 }
 
 function TherMCU.new( config )
@@ -19,7 +20,7 @@ function TherMCU.new( config )
 
 	o.servo		= tServo.new( o.config.servo )
 	o.display	= tOled.new( o.config.display )
-	o.led		= tLed.new( o.config.led )
+	-- o.led		= tLed.new( o.config.led )
 	o.temp		= tTemp.new( o.config.temp )
 	o.rotary	= tRotary.new( o.config.rotary )
 	o.message	= tMessage.new( o.config.rotary )
