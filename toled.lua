@@ -6,6 +6,7 @@ tOled = {
 
 function tOled.new( config )
 	local o = {}
+	local disp = {}
 	o.config = config
 	setmetatable(o, { __index = tOled })
 	return o
@@ -29,7 +30,7 @@ function tOled:init()
 	self.disp:setFontPosTop()
 
 	-- Show boot message
-	self.splash()
+	self:splash()
 end
 
 function tOled:splash()
