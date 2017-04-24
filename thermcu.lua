@@ -29,11 +29,18 @@ function TherMCU.new( config )
 end
 
 function TherMCU:init()
+	print( "servo.init" )
 	self.servo.init()
+	print( "display.init" )
 	self.display.init()
+	print( "temp.init" )
 	self.temp.init()
+	print( "rotary.init" )
 	self.rotary.init()
+	print( "mqtt.init" )
 	self.message.init()
+	-- print( "rgbled.init" )
+	-- self.led.init()
 end
 
 function TherMCU:go()

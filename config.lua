@@ -18,7 +18,7 @@ config = {
 	},
 
 	temp = {
-		pin = 2
+		pin = 3
 		, unit	= 0 -- 0=C, 1=F
 		-- User restricted min and max
 		, min	= 5
@@ -38,7 +38,7 @@ config = {
 	},
 
 	servo = {
-		pin = 2
+		pin = 8
 		, frq = 50		-- Hz
 		, min = 400		-- 0deg posn value
 		, max = 2400	-- 180deg posn value
