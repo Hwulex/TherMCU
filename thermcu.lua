@@ -24,7 +24,7 @@ function TherMCU.new( config )
 	-- o.led		= tLed.new( o.config.led )
 	o.tsense	= tTemp.new( o.config.temp )
 	o.rotary	= tRotary.new( o.config.rotary )
-	o.message	= tMessage.new( o.config.rotary )
+	o.message	= tMessage.new( o.config.message )
 
 	return o
 end
@@ -47,13 +47,14 @@ end
 function TherMCU:go()
 	-- 60 second loop to read temp and update display
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
-	tmr.create():alarm( 2000, tmr.ALARM_AUTO, function()
+	tmr.create():alarm( 5000, tmr.ALARM_AUTO, function()
 		self.temp, self.humid = self.tsense:read();
 		if false == self.display:isLocked() then
 			self.display:update( self.temp )
 			self.menuPos = self.temp
 		end
-		self.message:send( { self.temp, self.humid } )
+		-- self.message:send( { self.temp, self.humid } )
+		self.message:send( self.temp )
 	end)
 
 	-- 1 second loop for menu handling and screen updating

@@ -74,16 +74,11 @@ config = {
 	},
 
  	message = {
-		clnt =	"clientid"
-		, poll = 120
-		, scur = 0
-		, rcon = 1
-		, user = "username"
-		, pass = "password"
-		, addr = "192.168.1.20"
-		, port = 1883
-		, qoss =	0
-		, qosp = 0
-		, retn = 1
+		poll = 120	-- Keep alive timer (seconds)
+		, scur = 0	-- Secure connection
+		, rcon = 1	-- auto-reconnect
+		, qoss = 0	-- Sub QoS
+		, qosp = 0	-- Pub QoS
+		, retn = 1	-- Retain
 	}
 }
