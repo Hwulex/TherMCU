@@ -6,10 +6,11 @@ dofile( "tmessage.lua" )
 
 
 TherMCU = {
-	menuDep = 0
-	, menuPos = 0
-	, temp	= 0
-	, humid	= 0
+	menuDep		= 0
+	, menuPos	= 0
+	, menuTmr	= 0
+	, temp		= 0
+	, humid		= 0
 	--, menu	= {{1,2,3}, {4,5,6}, {7,8,9}}
 }
 
