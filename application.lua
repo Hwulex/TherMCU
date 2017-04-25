@@ -1,6 +1,6 @@
 --[[
 
-IoT thermostate for NodeMCU/ESP8266
+IoT DIY thermostat for NodeMCU/ESP8266
 Copyright (C) 2017 Dominic Wrapson
 
 This program is free software: you can redistribute it and/or modify
