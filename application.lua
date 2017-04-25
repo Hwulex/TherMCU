@@ -23,3 +23,4 @@ dofile( "thermcu.lua")
 
 app = TherMCU.new( config )
 app:init()
+app:go()
