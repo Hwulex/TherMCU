@@ -2,11 +2,25 @@
 -- firmware build with following modules:
 -- bit, dht, file, gpio, i2c, mqtt, net, node,
 -- rotary, spi, tmr, u8g, uart, wifi, ws2812
+-- Suggest using float firmware
+-- Built and tested on 1.5.4.1 final, custom from nodemcu-build.com
+-- http://nodemcu-build.com/builds/nodemcu-1.5.4.1-final-15-modules-2017-04-25-01-54-14-float.bin
+-- http://nodemcu-build.com/builds/nodemcu-1.5.4.1-final-15-modules-2017-04-25-01-54-14-integer.bin
+
+-- NodeMCU custom build by frightanic.com
+-- 	branch: 1.5.4.1-final
+-- 	commit: 1885a30bd99aec338479aaed77c992dfd97fa8e2
+-- 	SSL: false
+-- 	modules: bit,dht,file,gpio,i2c,mqtt,net,node,rotary,spi,tmr,u8g,uart,wifi,ws2812
+--  build 	built on: 2017-04-25 01:53
+--  powered by Lua 5.1.4 on SDK 1.5.4.1(39cb9a32)
 
 config = {
 
 	display = {
-		-- 128x64 oled
+		-- ssd1306_128x64_i2c
+		-- ssd1306_128x64_hw_spi
+		-- oled
 		type = 1, -- 1=i2c, 2=spi
 
 		i2c = {
