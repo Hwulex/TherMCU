@@ -49,7 +49,7 @@ function TherMCU:go()
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 2000, tmr.ALARM_AUTO, function()
 		self.temp, self.humid = self.tsense:read();
-		if false == self:isLocked() then
+		if false == self.display:isLocked() then
 			self.display:update( self.temp )
 			self.menuPos = self.temp
 		end
