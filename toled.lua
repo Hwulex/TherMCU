@@ -1,7 +1,8 @@
 
 
 tOled = {
-	lock = false
+	lock	= false
+	, text	= ""
 }
 
 function tOled.new( config )
@@ -30,11 +31,11 @@ function tOled:init()
 	self.disp:setFontPosTop()
 
 	-- Show boot message
-	self:splash()
+	self:_splash()
 end
 
-function tOled:splash()
-	self.disp:drawStr( 0, 0, "Initialising..." )
+function tOled:_splash()
+	self:update( "Initialising..." )
 end
 
 function tOled:lock()
@@ -50,5 +51,17 @@ function tOled:isLocked()
 end
 
 function tOled:update( text )
-	self.disp:drawStr( 0, 0, text )
+	self.text = text
+	self:_display()
+end
+
+function tOled:_draw()
+	self.disp:drawStr( 0, 0, self.text )
+end
+
+function tOled:_display()
+	self.disp:firstPage()
+	repeat
+		self:_draw()
+	until self.disp:nextPage() == false
 end

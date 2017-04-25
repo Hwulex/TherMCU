@@ -1,7 +1,12 @@
+-- For full functionality, ESP8266 requres custom
+-- firmware build with following modules:
+-- bit, dht, file, gpio, i2c, mqtt, net, node,
+-- rotary, spi, tmr, u8g, uart, wifi, ws2812
 
 config = {
 
 	display = {
+		-- 128x64 oled
 		type = 1, -- 1=i2c, 2=spi
 
 		i2c = {

@@ -10,7 +10,7 @@ TherMCU = {
 	, menuPos	= 0
 	, menuTmr	= 0
 	, temp		= 0
-	, humid		= 0
+	, tHumid	= 0
 	--, menu	= {{1,2,3}, {4,5,6}, {7,8,9}}
 }
 
@@ -22,7 +22,7 @@ function TherMCU.new( config )
 	o.servo		= tServo.new( o.config.servo )
 	o.display	= tOled.new( o.config.display )
 	-- o.led		= tLed.new( o.config.led )
-	o.temp		= tTemp.new( o.config.temp )
+	o.tsense	= tTemp.new( o.config.temp )
 	o.rotary	= tRotary.new( o.config.rotary )
 	o.message	= tMessage.new( o.config.rotary )
 
@@ -35,7 +35,7 @@ function TherMCU:init()
 	print( "display.init" )
 	self.display:init()
 	print( "temp.init" )
-	self.temp:init()
+	self.tsense:init()
 	print( "rotary.init" )
 	self.rotary:init()
 	print( "mqtt.init" )
@@ -47,8 +47,8 @@ end
 function TherMCU:go()
 	-- 60 second loop to read temp and update display
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
-	tmr.create():alarm( 60000, tmr.ALARM_AUTO, function()
-		self.temp, self.humid = self.temp:read();
+	tmr.create():alarm( 2000, tmr.ALARM_AUTO, function()
+		self.temp, self.humid = self.tsense:read();
 		if false == self:isLocked() then
 			self.display:update( self.temp )
 			self.menuPos = self.temp
