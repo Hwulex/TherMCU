@@ -87,19 +87,17 @@ function TherMCU:instruct( topic, data )
 		-- push button enter menu
 			-- Need to track menu depth and position
 
-print( "Instruct!" )
-
 	if "temp" == topic then
 		-- Only continue if temp has selected different from current setting
 		if data ~= self.temp then
 			-- If setting outside user range, show current setting
-			if min > data or max < data then
+			if self.config.temp.min > data or self.config.temp.max < data then
 				self.display:update( "Set: " .. self.temp )
 			else
 				-- Calculate thermostat rotation
 				degrees = (
-					( config.temp.maxD - config.temp.minD )
-					/ ( config.temp.maxA - config.temp.minA )
+					( self.config.temp.maxD - self.config.temp.minD )
+					/ ( self.config.temp.maxA - self.config.temp.minA )
 				) * data
 				self.servo:move( degrees )
 				self.display:update( "Set: " .. data )
