@@ -1,7 +1,7 @@
 
 
 tOled = {
-	lock	= false
+	locked	= false
 	, text	= ""
 }
 
@@ -39,15 +39,15 @@ function tOled:_splash()
 end
 
 function tOled:lock()
-	self.lock = true
+	self.locked = true
 end
 
 function tOled:unlock()
-	self.lock = false
+	self.locked = false
 end
 
 function tOled:isLocked()
-	return self.lock
+	return self.locked
 end
 
 function tOled:update( text )

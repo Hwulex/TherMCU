@@ -30,6 +30,10 @@ function TherMCU.new( config )
 end
 
 function TherMCU:init()
+	-- Preset minimum temp
+	self.menuPos = self.config.temp.min
+
+	-- Initialise all child objects
 	print( "> servo.init" )
 	self.servo:init()
 	print( "> display.init" )
@@ -49,11 +53,16 @@ function TherMCU:go()
 	-- tmr.alarm( 0, 60000, tmr.ALARM_AUTO, function()
 	tmr.create():alarm( 5000, tmr.ALARM_AUTO, function()
 		self.temp, self.humid = self.tsense:read();
+
 		if false == self.display:isLocked() then
 			self.display:update( self.temp )
 			self.menuPos = self.temp
 		end
-		-- self.message:send( { self.temp, self.humid } )
+
+		if self.menuPos == self.config.temp.min then
+			self.menuPos = self.temp
+		end
+
 		self.message:send( self.temp )
 	end)
 
@@ -78,6 +87,8 @@ function TherMCU:instruct( topic, data )
 		-- push button enter menu
 			-- Need to track menu depth and position
 
+print( "Instruct!" )
+
 	if "temp" == topic then
 		-- Only continue if temp has selected different from current setting
 		if data ~= self.temp then
@@ -97,6 +108,7 @@ function TherMCU:instruct( topic, data )
 	end
 end
 
+
 -- Rotary switch instruction interpretation
 function TherMCU:rotary( action )
 	if 0 == action then
@@ -113,7 +125,7 @@ function TherMCU:rotary( action )
 		-- valid temp that was within range as input has been ignored
 		-- This means if you keep spinning left, displayed temp will lock
 		-- at lowest user defined temp
-		self.display.update( self.menuPos )
+		self.display:update( self.menuPos )
 	elseif 1 == action then
 	-- turn right
 		-- If not at max defined temp, increase
@@ -121,7 +133,7 @@ function TherMCU:rotary( action )
 			self.menuPos = self.menuPos + 1
 		end
 		-- Only display selected temp if within user range
-		self.display.update( self.menuPos )
+		self.display:update( self.menuPos )
 	else
 		-- Invalid event, reset timer to reset display
 		self.menuTmr = 0

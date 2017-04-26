@@ -5,7 +5,7 @@ function startup()
     if file.open( "init.lua" ) == nil then
         print( "init.lua deleted or renamed" )
     else
-        print( "Running" )
+        print( "Running application" )
         file.close( "init.lua" )
         -- the actual application is stored in 'application.lua'
         -- dofile( "application.lua" )
@@ -31,7 +31,7 @@ tmr.alarm( 1, 1000, 1, function()
     else
         tmr.stop( 1 )
         print( "WiFi connection established, IP address: " .. wifi.sta.getip() )
-        print( "You have 3 seconds to abort" )
+        print( "You have 3 seconds to abort application load" )
         print( "Waiting..." )
         tmr.alarm( 0, 3000, 0, startup )
     end

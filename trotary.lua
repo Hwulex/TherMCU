@@ -44,12 +44,13 @@ function tRotary:init()
 		self.pos = pos
 
 		-- Send turn signal to app
-		-- app:rotary( turn )
+		-- print( app.temp )
+		TherMCU.rotary( _G.app, turn )
 	end)
 
 	-- Click event
 	rotary.on( self.channel, rotary.CLICK, function( type )
 		print( "Rotary clicked: event type (" .. type .. ")" )
-		-- app:rotary( 0 )
+		_G.app:rotary( 0 )
 	end)
 end
