@@ -2,9 +2,7 @@
 
 tRotary = {
 	pos	= 0
-	, when = 0
 	, channel = 0
-	, debounce = 100
 }
 
 function tRotary.new( config )
@@ -15,19 +13,19 @@ function tRotary.new( config )
 end
 
 function tRotary:init()
+	-- Safety check to prevent divide-by-zero error
+	if 1 > self.config.steps then
+		print( "You have not defined rotary step divisor in config. Defaulting to: 1" )
+		self.config.steps = 1
+	end
+
+	-- Initialize the nodemcu to talk to a rotary encoder switch
 	rotary.setup( self.channel, self.config.pinA, self.config.pinB, self.config.switch )
-	-- print( "Rotary position: " .. rotary.getpos( self.channel ) )
 
 	-- Turn event
 	rotary.on( self.channel, rotary.TURN, function( type, pos, when )
-		-- print( "Position=" .. pos .. " event type=" .. type .. " time=" .. when )
-
 		-- Read position from rotary to figure out if left or right
-		pos = math.floor( rotary.getpos( self.channel ) / 4 )
-		-- print( "Rotary cur: " .. self.pos )
-		-- print( "Rotary pos: " .. pos )
-		-- print( "Rotary when: " .. self.when )
-		-- print( "Rotary now: " .. when )
+		pos = math.floor( rotary.getpos( self.channel ) / self.config.steps )
 
 		-- check rotation
 		if pos < self.pos then
@@ -40,12 +38,10 @@ function tRotary:init()
 			print( "Rotary turned right" )
 		else
 			-- no turn (or end in same place as start)
-			-- print( "Rotary turned but ended up where we started. Do nothing" )
 			return
 		end
-		-- print( "else should not get here" )
+		-- Save new position
 		self.pos = pos
-		self.when = when
 
 		-- Send turn signal to app
 		-- app:rotary( turn )

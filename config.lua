@@ -1,7 +1,7 @@
--- For full functionality, ESP8266 requres custom
+-- For full functionality, NodeMCU should be flashed with custom
 -- firmware build with following modules:
--- bit, dht, file, gpio, i2c, mqtt, net, node,
--- rotary, spi, tmr, u8g, uart, wifi, ws2812
+-- 		bit, dht, file, gpio, i2c, mqtt, net, node,
+-- 		rotary, spi, tmr, u8g, uart, wifi, ws2812
 -- Suggest using float firmware
 -- Built and tested on 1.5.4.1 final, custom from nodemcu-build.com
 -- http://nodemcu-build.com/builds/nodemcu-1.5.4.1-final-15-modules-2017-04-25-01-54-14-float.bin
@@ -51,9 +51,14 @@ config = {
 	},
 
 	rotary = {
-		pinA = 5,
-		pinB = 6,
-		switch = 7
+		pinA	= 5,
+		pinB	= 6,
+		switch	= 7,
+		-- See http://nodemcu.readthedocs.io/en/master/en/modules/rotary/#rotaryon
+		-- Some switches have 4 steps per detent. This means that, in practice,
+		-- the application should divide the position by 4 and use that to
+		-- determine the number of clicks
+		steps	= 4
 	},
 
 	servo = {
